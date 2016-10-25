@@ -1,0 +1,189 @@
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl --insecure -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+
+" ----------------------------------------------------------------------------
+" My Plugs here:
+" ----------------------------------------------------------------------------
+
+Plug 'milkypostman/vim-togglelist'
+
+Plug 'bling/vim-airline'
+"let g:airline_left_sep = '▶'
+"let g:airline_right_sep = '◀'
+
+Plug 'machakann/vim-textobj-delimited'
+
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+
+Plug 'tpope/vim-fugitive'
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gr :Gread<CR>
+nnoremap <leader>gw :Gwrite<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gl :Glog<CR>
+nnoremap <leader>gp :Gpull<CR>
+nnoremap <leader>gP :Gpush<CR>
+
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+nnoremap <leader>N :NERDTreeToggle<CR>
+
+"Plug 'scrooloose/nerdcommenter'
+Plug 'tomtom/tcomment_vim'
+
+Plug 'sjl/gundo.vim'
+nmap <leader>u :GundoToggle<CR>
+
+"Plug 'skupr/ScrollColors'
+"Plug 'colorsupport.vim'
+"Plug 'Colour-Sampler-Pack'
+"Plug 'flazz/vim-colorschemes'
+
+Plug 'tomasr/molokai'
+Plug 'altercation/vim-colors-solarized'
+
+"let g:ctrlp_by_filename = 1
+let g:ctrlp_extensions = ['tag']
+let g:ctrlp_working_path_mode = '0'
+let g:ctrlp_follow_symlinks = 1
+Plug 'ctrlp.vim'
+nnoremap <leader>b :CtrlPBuffer<CR>
+nnoremap <leader>@ :CtrlPBufTag<CR>
+nnoremap <leader>t :CtrlPTag<CR>
+
+Plug 'Lokaltog/vim-easymotion'
+"let g:EasyMotion_do_mapping = 0 " Disable default mappings
+" Bi-directional find motion
+" Jump to anywhere you want with minimal keystrokes, with just one key binding.
+" `s{char}{label}`
+nmap s <Plug>(easymotion-s)
+"" or
+"" `s{char}{char}{label}`
+"" Need one more keystroke, but on average, it may be more comfortable.
+"nmap s <Plug>(easymotion-s2)
+" Turn on case insensitive feature
+let g:EasyMotion_smartcase = 1
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+
+Plug 'majutsushi/tagbar'
+nmap <leader>T :TagbarOpenAutoClose<CR>
+
+Plug 'mileszs/ack.vim'
+nnoremap <leader>a :Ack<Space>
+nnoremap \ :Ack<Space>
+nnoremap <leader>f :Ack <C-R><C-W><CR>
+nnoremap <leader>w :Ack -w <C-R><C-W><CR>
+nnoremap <leader>F :Ack %:t<CR>
+
+let python_version_2 = 1
+let python_highlight_all = 1
+Plug 'hdima/python-syntax', { 'for': 'python' }
+
+let g:jedi#show_call_signatures = 0
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+
+Plug 'AndrewRadev/linediff.vim'
+
+Plug 'ervandew/supertab'
+
+Plug 'basilgor/vim-autotags'
+
+Plug 'editorconfig/editorconfig-vim'
+
+Plug 'mattn/emmet-vim', { 'for': [ 'html', 'htmldjango' ] }
+
+Plug 'airblade/vim-gitgutter'
+
+Plug 'dhruvasagar/vim-table-mode'
+
+" let g:vim_isort_map = '<C-i>'
+" Plug 'fisadev/vim-isort'
+command! -range=% Isort :<line1>,<line2>! isort -
+
+" ----------------------------------------------------------------------------
+" Some heavy language-specigfic plugins - turned off by default;
+" Enable them in per-project .vimrc.plug
+" ----------------------------------------------------------------------------
+if expand('<sfile>:h') != getcwd() && filereadable(".vimrc.plug")
+    source .vimrc.plug
+endif
+" ----------------------------------------------------------------------------
+" Some useful plugins to use in .vimrc.plug
+" ----------------------------------------------------------------------------
+
+"Plug 'a.vim'
+"" Toggle (h)eader and source
+"nnoremap <silent> <leader>h :A<CR>
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
+"let g:syntastic_id_checkers = 1
+"let g:syntastic_python_checkers = ['pyflakes']
+"let g:syntastic_python_pyflakes_quiet_messages = {
+    "\ "regex": [
+        "\ 'imported but unused',
+        "\ 'is assigned to but never used',
+        "\ 'list comprehension redefines',
+        "\ 'redefinition of unused',
+        "\ 'unable to detect undefined names'
+    "\ ] }
+"let g:syntastic_javascript_checkers = ['jshint']
+"let g:syntastic_javascript_jshint_quiet_messages = {
+    "\ "regex": [
+        "\ 'Script URL'
+    "\ ] }
+"let g:syntastic_ignore_files = ['.jsx$']
+"let g:syntastic_perl_checkers = ['perl']
+"let g:syntastic_enable_perl_checker = 1
+"Plug 'scrooloose/syntastic'
+
+"Plug 'mxw/vim-jsx', { 'for' : 'javascript.jsx' }
+
+"Plug 'Valloric/YouCompleteMe'
+"let g:ycm_confirm_extra_conf = 0
+""options for debugging if YCM isn't working
+""let g:ycm_server_keep_logfiles = 1
+""let g:ycm_server_log_level = 'debug'
+
+"Plug 'ternjs/tern_for_vim'
+
+" ----------------------------------------------------------------------------
+" Old plugins that I've stopped using
+" ----------------------------------------------------------------------------
+
+"Plug 'klen/python-mode'
+"let g:pymode_folding = 0
+"let g:pymode_rope_goto_definition_cmd = 'e'
+"let g:pymode_trim_whitespaces = 0
+"let g:pymode_breakpoint = 0
+"let g:pymode_lint_on_fly = 1
+"let g:pymode_lint_checkers = ['pyflakes', 'pylint']
+"let g:pymode_options_colorcolumn = 0
+
+"Plug 'cscope_macros.vim'
+
+"Plug 'taglist.vim'
+"let Tlist_Close_On_Select = 1
+"let Tlist_Sort_Type = "name"
+"let Tlist_File_Fold_Auto_Close = 1
+"let Tlist_GainFocus_On_ToggleOpen = 1
+"let Tlist_Show_One_File = 1
+"nnoremap <silent> <leader>tt :TlistToggle<CR>
+"nnoremap <silent> <leader>tu :TlistUpdate<CR>
+"nnoremap <silent> <leader>th :TlistHighlightTag<CR>
+
+" ----------------------------------------------------------------------------
+" End of my bundles
+" ----------------------------------------------------------------------------
+
+call plug#end()
